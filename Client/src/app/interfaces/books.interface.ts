@@ -19,3 +19,8 @@ export interface AuthorInterface{
   name: string,
   bio: string
 }
+export interface shippingAddress{
+  details:string,
+  phone:string,
+  city:string
+}

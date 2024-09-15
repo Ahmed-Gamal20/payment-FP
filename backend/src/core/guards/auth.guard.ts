@@ -87,15 +87,13 @@ export class AuthGuard implements CanActivate {
   constructor(
     private _jwtService: JwtService,
     private reflector: Reflector,
-  ) {}
+  ) { }
 
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest();
 
-    // استخراج التوكن من الهيدر باسم 'token'
     const token = req.headers['token'];
 
-    // التحقق من وجود التوكن
     if (!token) {
       throw new HttpException(
         'User must be authenticated. Token is missing.',
@@ -104,23 +102,18 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
-      // التحقق من صحة التوكن
       const decoded = this._jwtService.verify(token, { secret: 'gaher' });
 
-      // إضافة معلومات المستخدم إلى الطلب
       req.user = {
         role: decoded.role,
         userId: decoded.userId,
         userName: `${decoded.fName} ${decoded.lName}`,
       };
 
-      // التحقق من الأدوار إذا كانت مطلوبة
       const roles = this.reflector.get<string[]>('roles', context.getHandler());
 
-      // السماح بالوصول إذا لم تكن هناك أدوار محددة
       if (!roles) return true;
 
-      // التحقق من دور المستخدم
       if (roles.includes(decoded.role)) {
         return true;
       } else {

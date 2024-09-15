@@ -4,7 +4,7 @@ import { UpdateCartQuantiy } from '../../services/cart/updateCartQuantiy.service
 import { DeleteBookFromCartService } from '../../services/cart/delete.service';
 import { CommonModule } from '@angular/common';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AddToWishlistBtnComponent } from "../../components/add-to-wishlist-btn/add-to-wishlist-btn.component";
 import { AddToCartBtnComponent } from "../../components/add-to-cart-btn/add-to-cart-btn.component";
 
@@ -20,11 +20,13 @@ import { AddToCartBtnComponent } from "../../components/add-to-cart-btn/add-to-c
     CommonModule,
     ConfirmationDialogComponent,
     AddToWishlistBtnComponent,
-    AddToCartBtnComponent
+    AddToCartBtnComponent,
+    RouterLink
 ],
 })
 export class CartComponent implements OnInit {
   cartBooks:any[] = []
+  cartId:string="";
   numOfCartItems:number=0
   totalPrice:number=0;
   showConfirmationDialog = false;
@@ -75,8 +77,10 @@ export class CartComponent implements OnInit {
       {
         next: (res) => {
           this.cartBooks=res.data.books;
-          this.totalPrice=res.data.totalPrice
-          console.log(this.totalPrice);
+          this.totalPrice=res.data.totalPrice;
+          this.cartId=res.data._id;
+          console.log(res.data)
+          console.log(this.cartId);
 
           this.numOfCartItems=res.data.numOfCartItems;
           console.log(this.cartBooks);
@@ -136,15 +140,5 @@ export class CartComponent implements OnInit {
       }
     )
   }
-  goToCheckout() {
-    this.router.navigate(['/check-out']);
-  }
 
-
-  // // Clear all items from the cart
-  // clearCart(): void {
-  //   this.cartService.clearCart();
-  //   this.getCartItems();
-  //   this.totalPrice = 0;
-  // }
 }

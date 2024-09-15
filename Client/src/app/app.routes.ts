@@ -4,7 +4,6 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { BooksComponent } from './pages/books/books.component';
 import { CartComponent } from './pages/cart/cart.component';
-import { CheckOutComponent } from './pages/check-out/check-out.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
@@ -14,6 +13,7 @@ import { Err404Component } from './pages/err404/err404.component';
 import { AuthorsComponent } from './pages/authors/authors.component';
 import { SignInSignUpComponent } from './pages/sign-in-sign-up/sign-in-sign-up.component';
 import { EmailVerifiedComponent } from './pages/email-Verified/email-verified/email-verified.component';
+import { ShippingAddressComponent } from './pages/shipping-address/shipping-address.component';
 
 export const routes: Routes = [
   {
@@ -42,10 +42,7 @@ export const routes: Routes = [
     path: 'books',
     component: BooksComponent,
   },
-  {
-    path: 'check-out',
-    component: CheckOutComponent,
-  },
+  
   {
     path: 'cart',
     component: CartComponent,
@@ -70,6 +67,10 @@ export const routes: Routes = [
   {
     path: 'authors',
     component: AuthorsComponent,
+  },
+  {
+    path: 'shipping/:cartId',
+    component: ShippingAddressComponent,
   },
   { path: 'auth', component: SignInSignUpComponent },
 
